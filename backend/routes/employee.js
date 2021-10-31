@@ -2,7 +2,7 @@ const express = require('express');
 const Router = express.Router();
 const dbCon = require('../connection.js')
 
-Router.get('/api', (req,res)=>{
+Router.get('/', (req,res)=>{
     console.log('get emp')
     dbCon.query('SELECT * FROM employee', (error, results, field)=>{
         if(!error){
@@ -21,7 +21,7 @@ Router.get('/api', (req,res)=>{
     })
 })
 
-Router.post('/api', (req,res)=>{
+Router.post('/', (req,res)=>{
     console.log('post emp')
     const fname = req.body.fname;
     const lname = req.body.lname;
@@ -62,7 +62,7 @@ Router.get('/:id', (req,res)=>{
     })
 })
 
-Router.put('/api', (req,res)=>{
+Router.put('/', (req,res)=>{
     console.log('put emp')
     const id = req.body.id;
     const fname = req.body.fname;
@@ -84,7 +84,7 @@ Router.put('/api', (req,res)=>{
     })
 })
 
-Router.delete('/api', (req,res)=>{
+Router.delete('/', (req,res)=>{
     console.log('delete emp')
     const id = req.body.id
     if(!id) return res.status(400).send({error: false , message: "Please enter id"}) ;

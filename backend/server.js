@@ -7,8 +7,8 @@ const departmentRoute = require('./routes/department')
 app.use(express.urlencoded({ extended: true}));
 app.use(express.json());
 
-app.use('/employee', employeeRoute);
-app.use('/department', departmentRoute)
+app.use('/employee/api', employeeRoute);
+app.use('/department/api', departmentRoute)
 
 app.get('/' , (req,res)=>{
     return res.send({error: false , message: 'Hello world'})
