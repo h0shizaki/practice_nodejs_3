@@ -4,7 +4,7 @@ const dbCon = require('../connection.js')
 
 Router.get('/', (req,res)=>{
     console.log('get emp')
-    dbCon.query('SELECT * FROM employee', (error, results, field)=>{
+    dbCon.query('SELECT * FROM `employee` INNER JOIN department WHERE employee.department_id = department.department_id; ', (error, results, field)=>{
         if(!error){
             let message = "";
             if(results.length == 0 || results === undefined) {
