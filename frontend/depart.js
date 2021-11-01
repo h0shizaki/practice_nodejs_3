@@ -23,3 +23,22 @@ function getData(){
 }
 
 getData()
+
+async function delDepartment(id){
+    console.log(id)
+    await fetch(API_URL+'department/api',{
+        method: 'DELETE',
+        headers: {'Content-Type' : 'application/json'},
+        body: JSON.stringify({'id': id})
+    })
+    .then(res=> res.json() )
+    .then(data=>{
+        if(data['error']){
+            alert(data['message'])
+        }else{
+            alert(data['message'])
+            getData()
+        }
+        
+    })
+}

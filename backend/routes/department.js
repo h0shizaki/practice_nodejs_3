@@ -80,20 +80,30 @@ Router.put('/', (req, res)=>{
     })
 })
 
-Router.delete('/:id', (req,res)=>{
+Router.delete('/', (req,res)=>{
     console.log('delete dep')
-    const id = req.params.id;
+    const id = req.body.id;
     if(!id){
         return res.status(400).send({error: true, message: "Please enter id"});
     }
 
-    dbCon.query('DELETE FROM department WHERE department_id = ?', id, (error, results, field)=>{
+    dbCon.query('SELECT * FROM employee WHERE department_id = ?', id, (error, results, field)=>{
         if(!error){
-            return res.status(200).send({error: false, data: results, message: "Data deleted"})
+
+            if(results.length == 0 || results === undefined){
+                dbCon.query('DELETE FROM department WHERE department_id = ?', id, (err, result, field)=>{
+                    if(!err){
+                        return res.status(200).send({error: false, data: result, message: "Data deleted"})
+                    }
+                    else throw err
+                })
+            }else{
+                return res.status(200).send({error: true, message:"Can not delete this department"})
+            }
         }
         else throw error
-    })
-
+    } )
+    
 })
 
 module.exports = Router ;
