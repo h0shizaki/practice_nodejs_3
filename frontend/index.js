@@ -27,6 +27,16 @@ function getData(){
 }
 getData()
 
-function delEmployee(id){
+async function delEmployee(id){
     console.log(id)
+    let delComfirm = confirm('Want to delete? Are you sure?')
+
+    if(delComfirm){
+        await fetch(API_URL+'employee/api',{
+            method: 'DELETE',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify({'id':id})
+        }).then(res=>console.log(res))
+        getData()
+    }
 }
